@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer & Refiner</title>
+    <!-- Tailwind CSS for Modern UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 text-center">
+        <h1 class="text-2xl font-bold text-indigo-400">⚡ Smart AI Text Summarizer</h1>
+        <p class="text-sm text-slate-400 mt-1">ረጅም ጽሁፎችን በአጭር ሰከንዶች ውስጥ ያሳጥሩ እና ያስተካክሉ</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-6 w-full flex-grow grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        
+        <!-- Input Section -->
+        <div class="flex flex-col">
+            <label for="inputText" class="font-semibold mb-2 text-slate-300">ማሳጠር የሚፈልጉትን ጽሁፍ እዚህ ይለጥፉ (Paste Text):</label>
+            <textarea id="inputText" rows="10" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none focus:border-indigo-500 text-slate-100 placeholder-slate-500" placeholder="እዚህ ላይ ጽሁፍዎን ያስገቡ..."></textarea>
+            <button onclick="summarizeText()" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-lg">
+                ጽሁፉን አሳጥር (Summarize)
+            </button>
+        </div>
+
+        <!-- Output Section -->
+        <div class="flex flex-col">
+            <label for="outputText" class="font-semibold mb-2 text-slate-300">የተስተካከለው እና አጭሩ ጽሁፍ (Result):</label>
+            <textarea id="outputText" rows="10" readonly class="w-full p-4 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none text-slate-300 placeholder-slate-600" placeholder="ውጤቱ እዚህ ላይ ይመጣል..."></textarea>
+            <button onclick="copyResult()" class="mt-4 bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
+                ኮድ/ጽሁፍ ቅዳ (Copy Result)
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 border-t border-slate-700 py-4 text-center text-sm text-slate-500">
+        <p>&copy; 2026 Free AI Tools. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Logic -->
+    <script>
+        function summarizeText() {
+            const input = document.getElementById('inputText').value.trim();
+            const outputField = document.getElementById('outputText');
+
+            if (!input) {
+                alert('እባክዎ መጀመሪያ ጽሁፍ ያስገቡ!');
+                return;
+            }
+
+            // Simple demo summarization logic (Placeholder for real AI API like OpenAI/Gemini API later)
+            const sentences = input.split('. ');
+            let summary = '';
+            
+            if (sentences.length > 2) {
+                // Takes the first and last sentences as a quick summary demo
+                summary = "የአጭር ማጠቃለያ ውጤት:\n- " + sentences[0] + ".\n- " + sentences[sentences.length - 1] + (sentences[sentences.length - 1].endsWith('.') ? '' : '.');
+            } else {
+                summary = "የተሰጠው ጽሁፍ ቀድሞውኑ አጭር ነው:\n" + input;
+            }
+
+            outputField.value = summary;
+        }
+
+        function copyResult() {
+            const outputField = document.getElementById('outputText');
+            if (!outputField.value) {
+                alert('የሚቀዳ ጽሁፍ የለም!');
+                return;
+            }
+            outputField.select();
+            document.execCommand('copy');
+            alert('ጽሁፉ ተቀድቷል (Copied)!');
+        }
+    </script>
+</body>
+</html>
